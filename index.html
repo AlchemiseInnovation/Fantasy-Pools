@@ -8,7 +8,7 @@
       font-family: Arial, sans-serif;
       background: #f4f4f4;
       padding: 20px;
-      max-width: 600px;
+      max-width: 700px;
       margin: auto;
     }
     h1 {
@@ -51,6 +51,17 @@
       border-radius: 8px;
       display: none;
     }
+    .log-box {
+      background: #222;
+      color: #0f0;
+      font-family: monospace;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 8px;
+      max-height: 300px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
     .version {
       text-align: center;
       font-size: 0.9em;
@@ -69,6 +80,7 @@
       <input type="text" id="userID" name="userID" placeholder="e.g. GONDOR-001" required>
     </div>
 
+    <!-- Match blocks (same as before) -->
     <!-- Match 1 -->
     <div class="match">
       <h3>Match 1: Rohan vs Gondor</h3>
@@ -78,7 +90,7 @@
         <option value="Draw">Draw</option>
         <option value="Gondor">Gondor wins</option>
       </select>
-      <label for="score1">Scoreline Prediction (e.g. 2–1):</label>
+      <label for="score1">Scoreline Prediction:</label>
       <input type="text" id="score1" name="score1">
     </div>
 
@@ -138,12 +150,21 @@
   </form>
 
   <div class="confirmation" id="confirmationBox"></div>
-
+  <div class="log-box" id="logBox">📜 Log initialized...</div>
   <div class="version">Fantasy Pools v1.0 – Last updated 03 Aug 2025</div>
 
   <script>
+    const logBox = document.getElementById("logBox");
+
+    function log(message) {
+      const timestamp = new Date().toLocaleTimeString();
+      logBox.textContent += `\n[${timestamp}] ${message}`;
+      logBox.scrollTop = logBox.scrollHeight;
+    }
+
     document.getElementById("matchForm").addEventListener("submit", function(e) {
       e.preventDefault();
+      log("Form submission triggered.");
 
       const predictions = {
         week: 1,
@@ -160,6 +181,9 @@
         score5: document.getElementById("score5").value
       };
 
+      log("Collected predictions:");
+      log(JSON.stringify(predictions, null, 2));
+
       fetch("https://script.google.com/macros/s/AKfycbw6_fDarWauJDFIK3UI1f0GoGN_nhuhbkKgRyChW4EEB72WzlfxDmpvTDrzbz0bCLMwyA/exec", {
         method: "POST",
         headers: {
@@ -167,16 +191,21 @@
         },
         body: JSON.stringify(predictions)
       })
-      .then(res => res.text())
+      .then(res => {
+        log(`Received response status: ${res.status}`);
+        return res.text();
+      })
       .then(data => {
+        log(`Response body: ${data}`);
         document.getElementById("confirmationBox").innerHTML = `<strong>${data}</strong>`;
         document.getElementById("confirmationBox").style.display = "block";
         document.getElementById("matchForm").reset();
+        log("Form reset after successful submission.");
       })
       .catch(err => {
+        log(`Error occurred: ${err}`);
         document.getElementById("confirmationBox").innerHTML = `<strong>Error:</strong> ${err}`;
         document.getElementById("confirmationBox").style.display = "block";
-        console.error("Submission error:", err);
       });
     });
   </script>
