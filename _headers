@@ -1,2 +1,8 @@
 /*
-  Content-Security-Policy: default-src 'self'; connect-src 'self' https://script.google.com; script-src 'self'; style-src 'self'; img-src 'self';
+  Content-Security-Policy: 
+    default-src * data: blob:; 
+    script-src * 'unsafe-inline' 'unsafe-eval' data: blob:; 
+    style-src * 'unsafe-inline' * data: blob:; 
+    img-src * data: blob:; 
+    font-src * data: blob:; 
+    connect-src * data: blob:;
