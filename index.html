@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Fantasy Pools – Week 1a</title>
+  <title>Fantasy Pools – Week 1</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -162,19 +162,19 @@
 
       fetch("https://script.google.com/macros/s/AKfycbw6_fDarWauJDFIK3UI1f0GoGN_nhuhbkKgRyChW4EEB72WzlfxDmpvTDrzbz0bCLMwyA/exec", {
         method: "POST",
-        body: JSON.stringify(predictions),
         headers: {
           "Content-Type": "application/json"
-        }
+        },
+        body: JSON.stringify(predictions)
       })
       .then(res => res.text())
       .then(data => {
-        document.getElementById("confirmationBox").innerHTML = `<strong>Success!</strong> Your predictions have been submitted.`;
+        document.getElementById("confirmationBox").innerHTML = `<strong>${data}</strong>`;
         document.getElementById("confirmationBox").style.display = "block";
         document.getElementById("matchForm").reset();
       })
       .catch(err => {
-        document.getElementById("confirmationBox").innerHTML = `<strong>Error:</strong> Could not submit predictions.`;
+        document.getElementById("confirmationBox").innerHTML = `<strong>Error:</strong> ${err}`;
         document.getElementById("confirmationBox").style.display = "block";
         console.error("Submission error:", err);
       });
