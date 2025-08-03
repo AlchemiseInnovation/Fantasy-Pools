@@ -10,7 +10,8 @@
     .match, .info { margin-bottom: 1rem; }
     label { display: block; margin-bottom: 0.5rem; }
     select, input { padding: 0.5rem; width: 100%; max-width: 300px; }
-    button { padding: 0.5rem 1rem; margin-top: 1rem; }
+    button { padding: 0.5rem 1rem; margin-top: 1rem; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+    button:hover { background-color: #45a049; }
   </style>
 </head>
 <body>
@@ -87,8 +88,8 @@
       // Save locally
       localStorage.setItem('week1-predictions', JSON.stringify({ name, ...predictions }));
 
-      // Send to SheetDB
-      fetch('https://sheetdb.io/api/v1/l36emtlb767kx', {
+      // Send to SheetDB (targeting Week1 tab)
+      fetch('https://sheetdb.io/api/v1/l36emtlb767kx?sheet=Week1', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -101,6 +102,10 @@
       .then(res => res.json())
       .then(data => {
         alert('Predictions submitted successfully!');
+        document.getElementById('name').value = '';
+        Object.keys(predictions).forEach((key, i) => {
+          document.getElementById(`match${i + 1}`).value = '';
+        });
       })
       .catch(err => {
         console.error('Submission error:', err);
