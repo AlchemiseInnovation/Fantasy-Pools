@@ -2,17 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Week 1 Match Entry</title>
+  <title>Fantasy Pools – Week 1</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       background: #f4f4f4;
       padding: 20px;
+      max-width: 600px;
+      margin: auto;
     }
     h1 {
       text-align: center;
     }
-    .match {
+    .match, .user-id {
       background: #fff;
       padding: 15px;
       margin: 10px 0;
@@ -46,10 +48,17 @@
 </head>
 <body>
 
-  <h1>Week 1 Match Predictions</h1>
+  <h1>Fantasy Pools – Week 1</h1>
 
   <form id="matchForm">
-    <!-- Repeat this block for each match -->
+
+    <!-- Unique ID Input -->
+    <div class="user-id">
+      <label for="userID">Your Unique ID:</label>
+      <input type="text" id="userID" name="userID" placeholder="e.g. GONDOR-001" required>
+    </div>
+
+    <!-- Match 1 -->
     <div class="match">
       <h3>Match 1: Team 1 vs Team 2</h3>
       <label for="result1">Result Prediction:</label>
@@ -58,13 +67,61 @@
         <option value="Draw">Draw</option>
         <option value="Team 2">Team 2 wins</option>
       </select>
-
       <label for="score1">Scoreline Prediction (e.g. 2–1):</label>
       <input type="text" id="score1" name="score1">
     </div>
 
-    <!-- Repeat for Match 2 to Match 5 -->
-    <!-- You can copy/paste and change team numbers accordingly -->
+    <!-- Match 2 -->
+    <div class="match">
+      <h3>Match 2: Team 3 vs Team 4</h3>
+      <label for="result2">Result Prediction:</label>
+      <select id="result2" name="result2">
+        <option value="Team 3">Team 3 wins</option>
+        <option value="Draw">Draw</option>
+        <option value="Team 4">Team 4 wins</option>
+      </select>
+      <label for="score2">Scoreline Prediction (e.g. 1–1):</label>
+      <input type="text" id="score2" name="score2">
+    </div>
+
+    <!-- Match 3 -->
+    <div class="match">
+      <h3>Match 3: Team 5 vs Team 6</h3>
+      <label for="result3">Result Prediction:</label>
+      <select id="result3" name="result3">
+        <option value="Team 5">Team 5 wins</option>
+        <option value="Draw">Draw</option>
+        <option value="Team 6">Team 6 wins</option>
+      </select>
+      <label for="score3">Scoreline Prediction (e.g. 0–2):</label>
+      <input type="text" id="score3" name="score3">
+    </div>
+
+    <!-- Match 4 -->
+    <div class="match">
+      <h3>Match 4: Team 7 vs Team 8</h3>
+      <label for="result4">Result Prediction:</label>
+      <select id="result4" name="result4">
+        <option value="Team 7">Team 7 wins</option>
+        <option value="Draw">Draw</option>
+        <option value="Team 8">Team 8 wins</option>
+      </select>
+      <label for="score4">Scoreline Prediction (e.g. 3–2):</label>
+      <input type="text" id="score4" name="score4">
+    </div>
+
+    <!-- Match 5 -->
+    <div class="match">
+      <h3>Match 5: Team 9 vs Team 10</h3>
+      <label for="result5">Result Prediction:</label>
+      <select id="result5" name="result5">
+        <option value="Team 9">Team 9 wins</option>
+        <option value="Draw">Draw</option>
+        <option value="Team 10">Team 10 wins</option>
+      </select>
+      <label for="score5">Scoreline Prediction (e.g. 1–0):</label>
+      <input type="text" id="score5" name="score5">
+    </div>
 
     <button type="submit" class="submit-btn">Submit Predictions</button>
   </form>
