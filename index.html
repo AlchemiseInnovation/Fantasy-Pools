@@ -40,26 +40,10 @@
   </form>
 
   <div class="log-box" id="logBox">📜 Log initialized...</div>
-
-  <script>
-    const logBox = document.getElementById("logBox");
-
-    function log(message) {
-      const timestamp = new Date().toLocaleTimeString();
-      const entry = `[${timestamp}] ${message}`;
-      logBox.textContent += `\n${entry}`;
-      console.log(entry); // ✅ Console proof
-      logBox.scrollTop = logBox.scrollHeight;
-    }
-
-    log("✅ Script loaded and log() function is active.");
-
-    document.getElementById("testForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const input = document.getElementById("testInput").value;
-      log(`Form submitted with input: "${input}"`);
-    });
-  </script>
+<script>
+  document.body.style.backgroundColor = "#ffeeee";
+  alert("✅ JavaScript is running!");
+</script>
 
 </body>
 </html>
