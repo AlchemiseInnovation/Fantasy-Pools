@@ -87,22 +87,32 @@
 
       fetch("https://script.google.com/macros/s/AKfycbzdIGGquswrc3IUdFqJ_6sW43Ej8FyffaWCPmoTMR2J7ep6MQkh4BwsCDQ0GHXGEzUqKQ/exec", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ Name: name, ...predictions })
-      })
-      .then(res => res.text())
-      .then(response => {
-        alert("Predictions submitted successfully!");
-        document.getElementById('name').value = '';
-        Object.keys(predictions).forEach((key, i) => {
-          document.getElementById(`match${i + 1}`).value = '';
-        });
-      })
-      .catch(err => {
-        console.error("Submission error:", err);
-        alert("Something went wrong submitting your predictions.");
-      });
-    });
+        
+  headers: {
+    "Content-Type": "text/plain;charset=utf-8"
+  },
+  body: JSON.stringify({
+    Name: name,
+    "Match 1": match1,
+    "Match 2": match2,
+    "Match 3": match3,
+    "Match 4": match4,
+    "Match 5": match5
+  }),
+  redirect: "follow"
+})
+.then(res => res.text())
+.then(response => {
+  alert("Predictions submitted successfully!");
+})
+.catch(err => {
+  console.error("Submission error:", err);
+  alert("Something went wrong submitting your predictions.");
+});
+
+
+
+    
   </script>
 </body>
 </html>
