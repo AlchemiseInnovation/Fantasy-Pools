@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Fantasy Pools – Week 1</title>
+  <title>Fantasy Pools v1.1 – Week 1</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body { font-family: sans-serif; padding: 2rem; background: #f4f4f4; }
@@ -80,38 +80,33 @@
         "Match 5": document.getElementById('match5').value
       };
 
+      // Validate input
       if (!name || Object.values(predictions).includes('')) {
         alert('Please enter your name and make selections for all matches.');
         return;
       }
 
-
-fetch("https://script.google.com/macros/s/AKfycbzdIGGquswrc3IUdFqJ_6sW43Ej8FyffaWCPmoTMR2J7ep6MQkh4BwsCDQ0GHXGEzUqKQ/exec", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    Name: name,
-    ...predictions
-  }),
-  redirect: "follow"
-})
-.then(res => res.text())
-.then(response => {
-  alert("Predictions submitted successfully!");
-})
-.catch(err => {
-  console.error("Submission error:", err);
-  alert("Something went wrong submitting your predictions.");
-});
-
-
- 
-
-
-
-    
+      // Send the data
+      fetch("https://script.google.com/macros/s/AKfycbzdIGGquswrc3IUdFqJ_6sW43Ej8FyffaWCPmoTMR2J7ep6MQkh4BwsCDQ0GHXGEzUqKQ/exec", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          Name: name,
+          ...predictions
+        }),
+        redirect: "follow"
+      })
+      .then(res => res.text())
+      .then(response => {
+        alert("Predictions submitted successfully!");
+      })
+      .catch(err => {
+        console.error("Submission error:", err);
+        alert("Something went wrong submitting your predictions.");
+      });
+    });
   </script>
 </body>
 </html>
