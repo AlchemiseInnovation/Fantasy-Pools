@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Week 1 Match Entry</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .match {
+      background: #fff;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin: 5px 0;
+    }
+    select, input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+    }
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .submit-btn:hover {
+      background: #005fa3;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Week 1 Match Predictions</h1>
+
+  <form id="matchForm">
+    <!-- Repeat this block for each match -->
+    <div class="match">
+      <h3>Match 1: Team 1 vs Team 2</h3>
+      <label for="result1">Result Prediction:</label>
+      <select id="result1" name="result1">
+        <option value="Team 1">Team 1 wins</option>
+        <option value="Draw">Draw</option>
+        <option value="Team 2">Team 2 wins</option>
+      </select>
+
+      <label for="score1">Scoreline Prediction (e.g. 2–1):</label>
+      <input type="text" id="score1" name="score1">
+    </div>
+
+    <!-- Repeat for Match 2 to Match 5 -->
+    <!-- You can copy/paste and change team numbers accordingly -->
+
+    <button type="submit" class="submit-btn">Submit Predictions</button>
+  </form>
+
+</body>
+</html>
