@@ -87,25 +87,21 @@
       }
 
       // Send the data
-      fetch("https://script.google.com/macros/s/AKfycbyTeK31ZEJ6--E-mbXztZaHMqRSfnp4IFGmuY0o0JM-WVkbmRdEaOcOxEci39bW-nu6Bg/exec", {
+
+   fetch("https://script.google.com/macros/s/AKfycbyTeK31ZEJ6--E-mbXztZaHMqRSfnp4IFGmuY0o0JM-WVkbmRdEaOcOxEci39bW-nu6Bg/exec", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          Name: name,
-          ...predictions
-        }),
-        redirect: "follow"
-      })
-      .then(res => res.text())
-      .then(response => {
-        alert("Predictions submitted successfully!");
-      })
-      .catch(err => {
-        console.error("Submission error:", err);
-        alert("Something went wrong submitting your predictions.");
-      });
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    Name: name,
+    ...predictions
+  }),
+  redirect: "follow"
+})
+
+
+
     });
   </script>
 </body>
