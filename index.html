@@ -1,42 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Fantasy Pools</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body { font-family: sans-serif; padding: 2rem; }
-    .match { margin-bottom: 1rem; }
-    button { padding: 0.5rem 1rem; }
-  </style>
-</head>
-<body>
-  <h1>Week 1 Predictions</h1>
+<html>
+  <body>
+    <button id="submit">Click Me</button>
 
-  <div class="match">
-    <label>Rohan vs Gondor:
-      <select id="match1">
-        <option value="">--Choose--</option>
-        <option value="Rohan">Rohan</option>
-        <option value="Gondor">Gondor</option>
-      </select>
-    </label>
-  </div>
-
-  <button id="submit">Submit Prediction</button>
-
-  <script>
-    document.getElementById('submit').addEventListener('click', () => {
-      const prediction = document.getElementById('match1').value;
-      if (!prediction) {
-        alert('Please choose a team.');
-        return;
-      }
-
-      // Simulate sending data
-      console.log('Prediction submitted:', prediction);
-      alert(`You picked ${prediction}!`);
-    });
-  </script>
-</body>
+    <script>
+      document.getElementById('submit').addEventListener('click', () => {
+        alert('Button works!');
+      });
+    </script>
+  </body>
 </html>
