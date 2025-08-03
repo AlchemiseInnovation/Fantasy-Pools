@@ -1,215 +1,42 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
   <meta charset="UTF-8">
-  <title>Fantasy Pools – Week 1</title>
+  <title>Fantasy Pools</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      padding: 20px;
-      max-width: 700px;
-      margin: auto;
-    }
-    h1 {
-      text-align: center;
-    }
-    .match, .user-id {
-      background: #fff;
-      padding: 15px;
-      margin: 10px 0;
-      border-radius: 8px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
-    }
-    label {
-      display: block;
-      margin: 5px 0;
-    }
-    select, input[type="text"] {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 10px;
-    }
-    .submit-btn {
-      display: block;
-      width: 100%;
-      padding: 10px;
-      background: #0077cc;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    .submit-btn:hover {
-      background: #005fa3;
-    }
-    .confirmation {
-      background: #e0ffe0;
-      padding: 15px;
-      margin-top: 20px;
-      border-radius: 8px;
-      display: none;
-    }
-    .log-box {
-      background: #222;
-      color: #0f0;
-      font-family: monospace;
-      padding: 15px;
-      margin-top: 20px;
-      border-radius: 8px;
-      max-height: 300px;
-      overflow-y: auto;
-      white-space: pre-wrap;
-    }
-    .version {
-      text-align: center;
-      font-size: 0.9em;
-      color: #666;
-      margin-top: 30px;
-    }
+    body { font-family: sans-serif; padding: 2rem; }
+    .match { margin-bottom: 1rem; }
+    button { padding: 0.5rem 1rem; }
   </style>
 </head>
 <body>
+  <h1>Week 1 Predictions</h1>
 
-  <h1>Fantasy Pools – Week 1</h1>
-
-  <form id="matchForm">
-    <div class="user-id">
-      <label for="userID">Your Unique ID:</label>
-      <input type="text" id="userID" name="userID" placeholder="e.g. GONDOR-001" required>
-    </div>
-
-    <!-- Match blocks -->
-    <div class="match">
-      <h3>Match 1: Rohan vs Gondor</h3>
-      <label for="result1">Result Prediction:</label>
-      <select id="result1" name="result1">
-        <option value="Rohan">Rohan wins</option>
-        <option value="Draw">Draw</option>
-        <option value="Gondor">Gondor wins</option>
+  <div class="match">
+    <label>Rohan vs Gondor:
+      <select id="match1">
+        <option value="">--Choose--</option>
+        <option value="Rohan">Rohan</option>
+        <option value="Gondor">Gondor</option>
       </select>
-      <label for="score1">Scoreline Prediction:</label>
-      <input type="text" id="score1" name="score1">
-    </div>
+    </label>
+  </div>
 
-    <div class="match">
-      <h3>Match 2: Shire vs Mordor</h3>
-      <label for="result2">Result Prediction:</label>
-      <select id="result2" name="result2">
-        <option value="Shire">Shire wins</option>
-        <option value="Draw">Draw</option>
-        <option value="Mordor">Mordor wins</option>
-      </select>
-      <label for="score2">Scoreline Prediction:</label>
-      <input type="text" id="score2" name="score2">
-    </div>
-
-    <div class="match">
-      <h3>Match 3: Rivendell vs Isengard</h3>
-      <label for="result3">Result Prediction:</label>
-      <select id="result3" name="result3">
-        <option value="Rivendell">Rivendell wins</option>
-        <option value="Draw">Draw</option>
-        <option value="Isengard">Isengard wins</option>
-      </select>
-      <label for="score3">Scoreline Prediction:</label>
-      <input type="text" id="score3" name="score3">
-    </div>
-
-    <div class="match">
-      <h3>Match 4: Erebor vs Lothlórien</h3>
-      <label for="result4">Result Prediction:</label>
-      <select id="result4" name="result4">
-        <option value="Erebor">Erebor wins</option>
-        <option value="Draw">Draw</option>
-        <option value="Lothlórien">Lothlórien wins</option>
-      </select>
-      <label for="score4">Scoreline Prediction:</label>
-      <input type="text" id="score4" name="score4">
-    </div>
-
-    <div class="match">
-      <h3>Match 5: Fangorn vs Helm's Deep</h3>
-      <label for="result5">Result Prediction:</label>
-      <select id="result5" name="result5">
-        <option value="Fangorn">Fangorn wins</option>
-        <option value="Draw">Draw</option>
-        <option value="Helm's Deep">Helm's Deep wins</option>
-      </select>
-      <label for="score5">Scoreline Prediction:</label>
-      <input type="text" id="score5" name="score5">
-    </div>
-
-    <button type="submit" class="submit-btn" id="submitBtn">Submit Predictions</button>
-  </form>
-
-  <div class="confirmation" id="confirmationBox"></div>
-  <div class="log-box" id="logBox">📜 Log initialized...</div>
-  <div class="version">Fantasy Pools v1.0 – Last updated 03 Aug 2025</div>
+  <button id="submit">Submit Prediction</button>
 
   <script>
-alert("Script is running!");
+    document.getElementById('submit').addEventListener('click', () => {
+      const prediction = document.getElementById('match1').value;
+      if (!prediction) {
+        alert('Please choose a team.');
+        return;
+      }
 
-    log("Script loaded and running.");
-
-    const logBox = document.getElementById("logBox");
-
-    function log(message) {
-      const timestamp = new Date().toLocaleTimeString();
-      logBox.textContent += `\n[${timestamp}] ${message}`;
-      logBox.scrollTop = logBox.scrollHeight;
-    }
-
-    document.getElementById("matchForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      log("Submit button clicked.");
-
-      const predictions = {
-        week: 1,
-        userID: document.getElementById("userID").value.trim(),
-        result1: document.getElementById("result1").value,
-        score1: document.getElementById("score1").value.trim(),
-        result2: document.getElementById("result2").value,
-        score2: document.getElementById("score2").value.trim(),
-        result3: document.getElementById("result3").value,
-        score3: document.getElementById("score3").value.trim(),
-        result4: document.getElementById("result4").value,
-        score4: document.getElementById("score4").value.trim(),
-        result5: document.getElementById("result5").value,
-        score5: document.getElementById("score5").value.trim()
-      };
-
-      log("Collected predictions:");
-      log(JSON.stringify(predictions, null, 2));
-
-      fetch("https://script.google.com/macros/s/AKfycbw6_fDarWauJDFIK3UI1f0GoGN_nhuhbkKgRyChW4EEB72WzlfxDmpvTDrzbz0bCLMwyA/exec", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(predictions)
-      })
-      .then(res => {
-        log(`Fetch completed. Status: ${res.status}`);
-        return res.text();
-      })
-      .then(data => {
-        log(`Server response: ${data}`);
-        document.getElementById("confirmationBox").innerHTML = `<strong>${data}</strong>`;
-        document.getElementById("confirmationBox").style.display = "block";
-        document.getElementById("matchForm").reset();
-        log("Form reset after successful submission.");
-      })
-      .catch(err => {
-        log(`Fetch error: ${err}`);
-        document.getElementById("confirmationBox").innerHTML = `<strong>Error:</strong> ${err}`;
-        document.getElementById("confirmationBox").style.display = "block";
-      });
+      // Simulate sending data
+      console.log('Prediction submitted:', prediction);
+      alert(`You picked ${prediction}!`);
     });
   </script>
-
 </body>
 </html>
