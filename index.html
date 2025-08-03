@@ -7,14 +7,19 @@
   <style>
     body { font-family: sans-serif; padding: 2rem; background: #f4f4f4; }
     h1 { margin-bottom: 1rem; }
-    .match { margin-bottom: 1rem; }
+    .match, .info { margin-bottom: 1rem; }
     label { display: block; margin-bottom: 0.5rem; }
-    select { padding: 0.5rem; }
+    select, input { padding: 0.5rem; width: 100%; max-width: 300px; }
     button { padding: 0.5rem 1rem; margin-top: 1rem; }
   </style>
 </head>
 <body>
   <h1>Week 1 Predictions</h1>
+
+  <div class="info">
+    <label for="name">Your Name:</label>
+    <input type="text" id="name" placeholder="Enter your name">
+  </div>
 
   <div class="match">
     <label for="match1">Rohan vs Gondor:</label>
@@ -65,22 +70,42 @@
 
   <script>
     document.getElementById('submit').addEventListener('click', () => {
+      const name = document.getElementById('name').value.trim();
       const predictions = {
-        'Rohan vs Gondor': document.getElementById('match1').value,
-        'Shire vs Mordor': document.getElementById('match2').value,
-        'Isengard vs Rivendell': document.getElementById('match3').value,
-        'Minas Tirith vs Mirkwood': document.getElementById('match4').value,
-        'Erebor vs Lothlórien': document.getElementById('match5').value
+        'Match 1': document.getElementById('match1').value,
+        'Match 2': document.getElementById('match2').value,
+        'Match 3': document.getElementById('match3').value,
+        'Match 4': document.getElementById('match4').value,
+        'Match 5': document.getElementById('match5').value
       };
 
-      const missing = Object.values(predictions).filter(v => !v);
-      if (missing.length > 0) {
-        alert('Please make selections for all matches.');
+      if (!name || Object.values(predictions).includes('')) {
+        alert('Please enter your name and make selections for all matches.');
         return;
       }
 
-      localStorage.setItem('week1-predictions', JSON.stringify(predictions));
-      alert('Predictions saved:\n' + Object.entries(predictions).map(([k,v]) => `${k} → ${v}`).join('\n'));
+      // Save locally
+      localStorage.setItem('week1-predictions', JSON.stringify({ name, ...predictions }));
+
+      // Send to SheetDB
+      fetch('https://sheetdb.io/api/v1/l36emtlb767kx', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          data: [{
+            Name: name,
+            ...predictions
+          }]
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert('Predictions submitted successfully!');
+      })
+      .catch(err => {
+        console.error('Submission error:', err);
+        alert('Something went wrong submitting your predictions.');
+      });
     });
   </script>
 </body>
