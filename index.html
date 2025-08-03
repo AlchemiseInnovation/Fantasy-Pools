@@ -1,13 +1,61 @@
 <!DOCTYPE html>
-<html>
-  <body>
-    <button id="submit">Click Me</button>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fantasy Pools – Week 1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: sans-serif; padding: 2rem; background: #f4f4f4; }
+    h1 { margin-bottom: 1rem; }
+    .match { margin-bottom: 1rem; }
+    label { display: block; margin-bottom: 0.5rem; }
+    select { padding: 0.5rem; }
+    button { padding: 0.5rem 1rem; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <h1>Week 1 Predictions</h1>
 
-  
-    <script>
-      document.getElementById('submit').addEventListener('click', () => {
-        alert('Button works!');
-      });
-    </script>
-  </body>
+  <div class="match">
+    <label for="match1">Rohan vs Gondor:</label>
+    <select id="match1">
+      <option value="">--Choose--</option>
+      <option value="Rohan">Rohan</option>
+      <option value="Gondor">Gondor</option>
+    </select>
+  </div>
+
+  <div class="match">
+    <label for="match2">Shire vs Mordor:</label>
+    <select id="match2">
+      <option value="">--Choose--</option>
+      <option value="Shire">Shire</option>
+      <option value="Mordor">Mordor</option>
+    </select>
+  </div>
+
+  <button id="submit">Submit Predictions</button>
+
+  <script>
+    document.getElementById('submit').addEventListener('click', () => {
+      const match1 = document.getElementById('match1').value;
+      const match2 = document.getElementById('match2').value;
+
+      if (!match1 || !match2) {
+        alert('Please make selections for both matches.');
+        return;
+      }
+
+      const predictions = {
+        'Rohan vs Gondor': match1,
+        'Shire vs Mordor': match2
+      };
+
+      // Save to localStorage
+      localStorage.setItem('week1-predictions', JSON.stringify(predictions));
+
+      alert(`Predictions saved:\nRohan vs Gondor → ${match1}\nShire vs Mordor → ${match2}`);
+    });
+  </script>
+</body>
 </html>
