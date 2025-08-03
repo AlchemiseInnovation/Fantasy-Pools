@@ -15,7 +15,7 @@
 </head>
 <body>
   <h1>Week 1 Predictions</h1>
- 
+
   <div class="match">
     <label for="match1">Rohan vs Gondor:</label>
     <select id="match1">
@@ -34,27 +34,53 @@
     </select>
   </div>
 
+  <div class="match">
+    <label for="match3">Isengard vs Rivendell:</label>
+    <select id="match3">
+      <option value="">--Choose--</option>
+      <option value="Isengard">Isengard</option>
+      <option value="Rivendell">Rivendell</option>
+    </select>
+  </div>
+
+  <div class="match">
+    <label for="match4">Minas Tirith vs Mirkwood:</label>
+    <select id="match4">
+      <option value="">--Choose--</option>
+      <option value="Minas Tirith">Minas Tirith</option>
+      <option value="Mirkwood">Mirkwood</option>
+    </select>
+  </div>
+
+  <div class="match">
+    <label for="match5">Erebor vs Lothlórien:</label>
+    <select id="match5">
+      <option value="">--Choose--</option>
+      <option value="Erebor">Erebor</option>
+      <option value="Lothlórien">Lothlórien</option>
+    </select>
+  </div>
+
   <button id="submit">Submit Predictions</button>
 
   <script>
     document.getElementById('submit').addEventListener('click', () => {
-      const match1 = document.getElementById('match1').value;
-      const match2 = document.getElementById('match2').value;
+      const predictions = {
+        'Rohan vs Gondor': document.getElementById('match1').value,
+        'Shire vs Mordor': document.getElementById('match2').value,
+        'Isengard vs Rivendell': document.getElementById('match3').value,
+        'Minas Tirith vs Mirkwood': document.getElementById('match4').value,
+        'Erebor vs Lothlórien': document.getElementById('match5').value
+      };
 
-      if (!match1 || !match2) {
-        alert('Please make selections for both matches.');
+      const missing = Object.values(predictions).filter(v => !v);
+      if (missing.length > 0) {
+        alert('Please make selections for all matches.');
         return;
       }
 
-      const predictions = {
-        'Rohan vs Gondor': match1,
-        'Shire vs Mordor': match2
-      };
-
-      // Save to localStorage
       localStorage.setItem('week1-predictions', JSON.stringify(predictions));
-
-      alert(`Predictions saved:\nRohan vs Gondor → ${match1}\nShire vs Mordor → ${match2}`);
+      alert('Predictions saved:\n' + Object.entries(predictions).map(([k,v]) => `${k} → ${v}`).join('\n'));
     });
   </script>
 </body>
