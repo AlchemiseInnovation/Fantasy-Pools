@@ -2,48 +2,50 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Log Test</title>
+  <title>Button Log Test</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: sans-serif;
       padding: 20px;
     }
-    .log-box {
-      background: #111;
-      color: #0f0;
-      font-family: monospace;
-      padding: 15px;
+    #logBox {
       margin-top: 20px;
-      border-radius: 8px;
-      height: 200px;
-      overflow-y: auto;
-      white-space: pre-wrap;
-    }
-    .submit-btn {
+      border: 1px solid #ccc;
       padding: 10px;
-      background: #0077cc;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
+      min-height: 50px;
+      background: #f9f9f9;
     }
   </style>
 </head>
 <body>
+  <h2>Log Input on Button Press</h2>
+  <input type="text" id="textInput" placeholder="Type something..." />
+  <button onclick="handleClick()">Log It</button>
 
-  <h1>Log Test</h1>
+  <div id="logBox"></div>
 
-  <form id="testForm">
-    <label for="testInput">Enter something:</label>
-    <input type="text" id="testInput" name="testInput" required>
-    <button type="submit" class="submit-btn">Submit</button>
-  </form>
+  <script>
+    function handleClick() {
+      const input = document.getElementById("textInput");
+      const logBox = document.getElementById("logBox");
 
-  <div class="log-box" id="logBox">📜 Log initialized...</div>
-<script>
-  document.body.style.backgroundColor = "#ffeeee";
-  alert("✅ JavaScript is running!");
-</script>
+      if (!input || !logBox) {
+        console.error("Missing input or logBox element");
+        return;
+      }
 
+      const value = input.value.trim();
+      input.value = ""; // Clear the input box
+
+      if (value === "") {
+        console.warn("Empty input, nothing to log");
+        return;
+      }
+
+      const logEntry = document.createElement("div");
+      logEntry.textContent = `You entered: ${value}`;
+      logBox.appendChild(logEntry);
+    }
+  </script>
 </body>
 </html>
