@@ -1,17 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
-
-
-  <head>
+<head>
   <meta charset="UTF-8">
   <title>Fantasy Pools – Week 1</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://sheetdb.io;">
-  <style>
-   
-
-  
   <style>
     body { font-family: sans-serif; padding: 2rem; background: #f4f4f4; }
     h1 { margin-bottom: 1rem; }
@@ -81,11 +73,11 @@
     document.getElementById('submit').addEventListener('click', () => {
       const name = document.getElementById('name').value.trim();
       const predictions = {
-        'Match 1': document.getElementById('match1').value,
-        'Match 2': document.getElementById('match2').value,
-        'Match 3': document.getElementById('match3').value,
-        'Match 4': document.getElementById('match4').value,
-        'Match 5': document.getElementById('match5').value
+        "Match 1": document.getElementById('match1').value,
+        "Match 2": document.getElementById('match2').value,
+        "Match 3": document.getElementById('match3').value,
+        "Match 4": document.getElementById('match4').value,
+        "Match 5": document.getElementById('match5').value
       };
 
       if (!name || Object.values(predictions).includes('')) {
@@ -93,31 +85,22 @@
         return;
       }
 
-      // Save locally
-      localStorage.setItem('week1-predictions', JSON.stringify({ name, ...predictions }));
-
-      // Send to SheetDB (targeting Week1 tab)
-      fetch('https://sheetdb.io/api/v1/l36emtlb767kx?sheet=Week1', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          data: [{
-            Name: name,
-            ...predictions
-          }]
-        })
+      fetch("YOUR_WEB_APP_URL", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ Name: name, ...predictions })
       })
-      .then(res => res.json())
-      .then(data => {
-        alert('Predictions submitted successfully!');
+      .then(res => res.text())
+      .then(response => {
+        alert("Predictions submitted successfully!");
         document.getElementById('name').value = '';
         Object.keys(predictions).forEach((key, i) => {
           document.getElementById(`match${i + 1}`).value = '';
         });
       })
       .catch(err => {
-        console.error('Submission error:', err);
-        alert('Something went wrong submitting your predictions.');
+        console.error("Submission error:", err);
+        alert("Something went wrong submitting your predictions.");
       });
     });
   </script>
