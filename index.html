@@ -85,19 +85,15 @@
         return;
       }
 
-      fetch("https://script.google.com/macros/s/AKfycbzdIGGquswrc3IUdFqJ_6sW43Ej8FyffaWCPmoTMR2J7ep6MQkh4BwsCDQ0GHXGEzUqKQ/exec", {
-        method: "POST",
-        
+
+fetch("https://script.google.com/macros/s/AKfycbzdIGGquswrc3IUdFqJ_6sW43Ej8FyffaWCPmoTMR2J7ep6MQkh4BwsCDQ0GHXGEzUqKQ/exec", {
+  method: "POST",
   headers: {
-    "Content-Type": "text/plain;charset=utf-8"
+    "Content-Type": "application/json"
   },
   body: JSON.stringify({
     Name: name,
-    "Match 1": match1,
-    "Match 2": match2,
-    "Match 3": match3,
-    "Match 4": match4,
-    "Match 5": match5
+    ...predictions
   }),
   redirect: "follow"
 })
@@ -109,6 +105,9 @@
   console.error("Submission error:", err);
   alert("Something went wrong submitting your predictions.");
 });
+
+
+ 
 
 
 
